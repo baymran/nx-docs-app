@@ -1,13 +1,13 @@
 import {DeepReadonly} from "@core/utils";
 
-export type DocumentDTO = DeepReadonly<{
+export type DocumentEntity = DeepReadonly<{
   id: number;
   organization: string;
   type: string;
-  department_code: string;
+  departmentCode: string;
   series: string;
   number: string;
-  date_of_issue: Date;
+  dateOfIssue: Date;
   main: boolean;
   archival: boolean;
 }>

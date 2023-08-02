@@ -15,7 +15,6 @@ export const appConfig: ApplicationConfig = {
     {
         provide: API_URL,
         useValue: environment.api_url,
-    },
-    importProvidersFrom()
+    }
   ],
 };

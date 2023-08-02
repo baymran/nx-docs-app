@@ -15,10 +15,23 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@core/data-access": ["libs/core/data-access/src/index.ts"],
       "@core/http": ["libs/core/http/src/index.ts"],
+      "@core/utils": ["libs/core/utils/src/index.ts"],
+      "@docs/data-access": ["libs/docs/docs/data-access/src/index.ts"],
+      "@docs/feature-docs-list": [
+        "libs/docs/docs/feature-docs-list/src/index.ts"
+      ],
       "@docs/home": ["libs/docs/home/src/index.ts"],
-      "@documents/core/data-access": ["libs/core/data-access/src/index.ts"],
-      "@documents/core/utils": ["libs/core/utils/src/index.ts"]
+      "@documents/docs/docs/feature-docs-create": [
+        "libs/docs/docs/feature-docs-create/src/index.ts"
+      ],
+      "@documents/docs/docs/feature-docs-detail": [
+        "libs/docs/docs/feature-docs-detail/src/index.ts"
+      ],
+      "@documents/docs/docs/feature-docs-search": [
+        "libs/docs/docs/feature-docs-search/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
