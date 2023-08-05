@@ -19,6 +19,12 @@ export class ApiService {
     return this.http.post<T>(`${this.apiUrl}${url}`, JSON.stringify(data), { headers: this.headers });
   }
 
+  public put<T, D>(url: string, data: D): Observable<T> {
+    return this.http.put<T>(`${this.apiUrl}${url}`, JSON.stringify(data), {
+      headers: this.headers,
+    });
+  }
+
   private get headers(): HttpHeaders {
     const headersConfig = {
       'Content-Type': 'application/json',
@@ -28,11 +34,6 @@ export class ApiService {
     return new HttpHeaders(headersConfig);
   }
 
-  // public put<T, D>(url: string, data: D): Observable<T> {
-  //   return this.http.put<T>(`${this.apiUrl}${url}`, JSON.stringify(data), {
-  //     headers: this.headers,
-  //   });
-  // }
   //
   // public delete<T>(url: string): Observable<T> {
   //   return this.http.delete<T>(`${this.apiUrl}${url}`, {

@@ -1,0 +1,57 @@
+<div>
+  <mat-form-field>
+    <mat-select (selectionChange)="applyFilter($event.value)" placeholder="Вид документа">
+      <mat-option *ngFor="let type of documentTypes" [value]="type">{{ type }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Поиск по номеру документа" />
+  </mat-form-field>
+
+  <mat-checkbox (change)="onArchivedChange($event)">Показать архивные</mat-checkbox>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="masterToggle()" [checked]="isAllSelected()"></mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="selectedDocument = row" [checked]="selectedDocument === row"></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="documentType">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Вид документа</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.documentType }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="series">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Серия</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.series }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="number">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Номер</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.number }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="issueDate">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Дата выдачи</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.issueDate | date }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>Действия</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <!-- Здесь добавьте кнопки редактирования и удаления, которые станут активными только при выбранной записи -->
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'archived': row.isArchived}"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons></mat-paginator>
