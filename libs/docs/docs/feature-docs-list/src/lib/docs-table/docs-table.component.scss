@@ -1,4 +1,107 @@
 .table-container {
-  width: 60%;
+  width: 50%;
+  margin: 10px auto;
+  padding-top: 20px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+
+  .mat-mdc-table {
+    min-height: 70vh;
+
+    & .mat-mdc-row,
+    & .mat-mdc-footer-row {
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    & .mat-mdc-row:hover,
+    & .mat-mdc-footer-row:hover {
+      background-color: rgba(180, 180, 180, 0.05);
+    }
+
+    & .mat-mdc-row.archival,
+    & .mat-mdc-footer-row.archival {
+      background-color: rgba(144, 238, 144, 0.35);
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgba(144, 238, 144, 0.5);
+      }
+    }
+  }
+
+  .mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+  }
+
+  .mat-mdc-row:hover .mat-mdc-cell {
+    border-color: lightgrey;
+  }
+
+  .mat-column {
+    &-main {
+      flex: none;
+      width: auto;
+      padding: 0 10px;
+      min-width: 40px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      vertical-align: center;
+    }
+
+    &-type {
+      flex: 2;
+    }
+
+    &-series,
+    &-number {
+      flex: 1;
+      justify-content: center;
+    }
+
+    &-dateOfIssue {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+}
+
+.main-icon {
+  color: #ff0000;
+  width: auto;
+  height: auto;
   margin: 0 auto;
+  font-size: 16px;
+}
+
+.table-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.archive-checkbox {
+  order: 2;
+  margin-left: auto;
+}
+
+.mat-paginator {
+  position: sticky;
+  bottom: 0;
+  background-color: rgba(218, 218, 218, 0.35);
+}
+
+@media (max-width: 767px) {
+  .table-container {
+    width: 100%;
+  }
+
+  .mat-mdc-table {
+    min-height: 90vh;
+  }
 }

@@ -1,29 +1,39 @@
 <div class="table-container">
+  <div class="table-controls">
+    <mat-checkbox [checked]="showArchival" (change)="toggleArchival()" class="archive-checkbox">Показать архивные</mat-checkbox>
+  </div>
   <mat-table [dataSource]="dataSource" matSort >
 
+    <ng-container matColumnDef="main">
+      <mat-header-cell *matHeaderCellDef class="main"></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-icon *ngIf="row.main" class="main-icon">done</mat-icon>
+      </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="type">
-      <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by type">Документ</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.type }}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="type">Документ</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.type | capitalizeFirstLetter}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="series">
-      <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by series">Серия</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="series">Серия</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.series }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="number">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Номер</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="number">Номер</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.number }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="dateOfIssue">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Дата выдачи</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="dateOfIssue">Дата выдачи</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.dateOfIssue }}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'archival': row.archival}">
+    </mat-row>
   </mat-table>
-
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator class="mat-paginator" [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
 </div>
