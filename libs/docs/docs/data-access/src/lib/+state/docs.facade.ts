@@ -4,6 +4,7 @@ import { select, Store, Action } from '@ngrx/store';
 import * as DocsActions from './docs.actions';
 import * as DocsFeature from './docs.reducer';
 import * as DocsSelectors from './docs.selectors';
+import {tap} from "rxjs";
 
 @Injectable()
 export class DocsFacade {
@@ -13,8 +14,8 @@ export class DocsFacade {
    * Combine pieces of state using createSelector,
    * and expose them as observables through the facade.
    */
-  loaded$ = this.store.pipe(select(DocsSelectors.selectDocsLoaded));
-  allDocs$ = this.store.pipe(select(DocsSelectors.selectAllDocs));
+  status$ = this.store.pipe(select(DocsSelectors.selectDocsStatus));
+  allDocs$ = this.store.pipe(select(DocsSelectors.selectAllDocs), tap(console.log));
   selectedDocs$ = this.store.pipe(select(DocsSelectors.selectEntity));
 
   /**

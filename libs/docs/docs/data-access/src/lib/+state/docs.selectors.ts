@@ -7,9 +7,9 @@ export const selectDocsState =
 
 const { selectAll, selectEntities } = docsAdapter.getSelectors();
 
-export const selectDocsLoaded = createSelector(
+export const selectDocsStatus = createSelector(
   selectDocsState,
-  (state: DocsState) => state.loaded
+  (state: DocsState) => state.status
 );
 
 export const selectDocsError = createSelector(

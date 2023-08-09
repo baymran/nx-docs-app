@@ -1,5 +1,5 @@
-import {DocumentDTO} from "./docs-dto.model";
-import {DocumentEntity} from "./docs.entity";
+import {DocumentDTO, DocumentEntity} from "../index";
+
 
 type DocumentsDTOAdapter = {
   DTOtoEntity(dto: DocumentDTO): DocumentEntity,

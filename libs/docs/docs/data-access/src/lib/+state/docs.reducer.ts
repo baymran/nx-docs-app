@@ -2,13 +2,13 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 
 import * as DocsActions from './docs.actions';
-import { DocsEntity } from './docs.models';
+import {DocumentEntity, LoadingStatus} from "@core/data-access";
 
 export const DOCS_FEATURE_KEY = 'docs';
 
-export interface DocsState extends EntityState<DocsEntity> {
+export interface DocsState extends EntityState<DocumentEntity> {
   selectedId?: string | number; // which Docs record has been selected
-  loaded: boolean; // has the Docs list been loaded
+  status: LoadingStatus; // has the Docs list been loaded
   error?: string | null; // last known error (if any)
 }
 
@@ -16,23 +16,23 @@ export interface DocsPartialState {
   readonly [DOCS_FEATURE_KEY]: DocsState;
 }
 
-export const docsAdapter: EntityAdapter<DocsEntity> =
-  createEntityAdapter<DocsEntity>();
+export const docsAdapter: EntityAdapter<DocumentEntity> =
+  createEntityAdapter<DocumentEntity>();
 
 export const initialDocsState: DocsState = docsAdapter.getInitialState({
   // set initial required properties
-  loaded: false,
+  status: 'init',
 });
 
 const reducer = createReducer(
   initialDocsState,
   on(DocsActions.initDocs, (state) => ({
     ...state,
-    loaded: false,
+    status: 'loading' as const,
     error: null,
   })),
   on(DocsActions.loadDocsSuccess, (state, { docs }) =>
-    docsAdapter.setAll(docs, { ...state, loaded: true })
+    docsAdapter.setAll(docs, { ...state, status: 'loaded' as const })
   ),
   on(DocsActions.loadDocsFailure, (state, { error }) => ({ ...state, error }))
 );

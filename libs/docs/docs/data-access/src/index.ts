@@ -1,1 +1,5 @@
-
+export * from './lib/+state/docs.actions'
+export * as docsEffects from './lib/+state/docs.effects'
+export * from './lib/+state/docs.facade'
+export * as fromDocs from './lib/+state/docs.reducer'
+export * from './lib/+state/docs.selectors'

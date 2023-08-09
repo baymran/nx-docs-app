@@ -1,11 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { DocsEntity } from './docs.models';
+import {DocumentEntity} from "@core/data-access";
 
 export const initDocs = createAction('[Docs Page] Init');
 
 export const loadDocsSuccess = createAction(
   '[Docs/API] Load Docs Success',
-  props<{ docs: DocsEntity[] }>()
+  props<{ docs: DocumentEntity[] }>()
 );
 
 export const loadDocsFailure = createAction(

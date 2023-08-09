@@ -17,7 +17,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "documents",
+            "prefix": "docs",
             "style": "kebab-case"
           }
         ]
