@@ -26,4 +26,8 @@ export class DocsFacade {
   init() {
     this.store.dispatch(DocsActions.initDocs());
   }
+
+  public loadDocumentFromUrl() {
+    this.store.dispatch(DocsActions.loadOneDocument.loadDocument())
+  }
 }

@@ -15,7 +15,7 @@ const initialState: DocsListState = {
   docs: []
 }
 
-@Injectable({providedIn: "root"})
+@Injectable()
 export class DocumentsListComponentStore extends ComponentStore<DocsListState> {
   private readonly docsFacade = inject(DocsFacade);
   public readonly docs$ = this.select(({docs}) => docs)

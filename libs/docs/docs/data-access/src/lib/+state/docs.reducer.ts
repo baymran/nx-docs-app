@@ -34,7 +34,10 @@ const reducer = createReducer(
   on(DocsActions.loadDocsSuccess, (state, { docs }) =>
     docsAdapter.setAll(docs, { ...state, status: 'loaded' as const })
   ),
-  on(DocsActions.loadDocsFailure, (state, { error }) => ({ ...state, error }))
+  on(DocsActions.loadDocsFailure, (state, { error }) => ({ ...state, error })),
+  on(DocsActions.loadOneDocument.loadDocument, (state) => ({...state, status: 'loading' as const})),
+  on(DocsActions.loadOneDocument.loadDocumentSuccess, (state, {document}) =>
+    docsAdapter.addOne({...document}, {...state, status: 'loaded' as const}))
 );
 
 export function docsReducer(state: DocsState | undefined, action: Action) {

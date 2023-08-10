@@ -11,6 +11,7 @@ import {DocsTableComponent} from "../docs-table/docs-table.component";
   templateUrl: './docs-table-container.component.html',
   styleUrls: ['./docs-table-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DocumentsListComponentStore]
 })
 export class DocsTableContainerComponent {
   private readonly componentStore = inject(DocumentsListComponentStore);
