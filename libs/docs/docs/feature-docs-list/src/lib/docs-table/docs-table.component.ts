@@ -4,7 +4,7 @@ import {
   Component, Input,
   OnChanges, ViewChild
 } from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, registerLocaleData} from '@angular/common';
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
@@ -18,7 +18,8 @@ import {CapitalizeFirstLetterPipe} from "@core/utils";
 import {CdkTableModule} from "@angular/cdk/table";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
-import {animate, style, transition, trigger} from "@angular/animations";
+import localeRu from '@angular/common/locales/ru';
+registerLocaleData(localeRu);
 
 @Component({
   selector: 'docs-table',

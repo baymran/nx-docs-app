@@ -1,7 +1,7 @@
 import {
   ApplicationConfig,
   importProvidersFrom,
-  isDevMode,
+  isDevMode, LOCALE_ID,
 } from '@angular/core';
 import {
   provideRouter,
@@ -30,6 +30,7 @@ export const appConfig: ApplicationConfig = {
       provide: API_URL,
       useValue: environment.api_url,
     },
+    { provide: LOCALE_ID, useValue: 'ru' },
     provideAnimations(),
     provideStoreDevtools({ logOnly: !isDevMode() }),
   ],

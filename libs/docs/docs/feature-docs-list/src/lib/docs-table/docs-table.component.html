@@ -1,8 +1,20 @@
 <div class="table-container">
   <div class="table-controls">
-    <mat-checkbox [checked]="showArchival" (change)="toggleArchival()" class="archive-checkbox">Показать архивные</mat-checkbox>
+    <div class="buttons">
+      <button mat-raised-button color="primary" aria-label="Добавить">
+        <mat-icon>add</mat-icon>Добавить
+      </button>
+      <button mat-raised-button color="accent" aria-label="Редактировать">
+        <mat-icon>edit</mat-icon>Изменить
+      </button>
+      <button mat-raised-button color="warn" aria-label="Удалить">
+        <mat-icon>delete</mat-icon>Удалить
+      </button>
+    </div>
+    <mat-checkbox [checked]="showArchival" (change)="toggleArchival()" class="archive-checkbox">Показать архивные
+    </mat-checkbox>
   </div>
-  <mat-table [dataSource]="dataSource" matSort >
+  <mat-table [dataSource]="dataSource" matSort>
 
     <ng-container matColumnDef="main">
       <mat-header-cell *matHeaderCellDef class="main"></mat-header-cell>
@@ -28,7 +40,7 @@
 
     <ng-container matColumnDef="dateOfIssue">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="dateOfIssue">Дата выдачи</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.dateOfIssue }}</mat-cell>
+      <mat-cell *matCellDef="let row">{{ row.dateOfIssue | date:'shortDate' }}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
