@@ -14,9 +14,10 @@ export class DocsFacade {
    * Combine pieces of state using createSelector,
    * and expose them as observables through the facade.
    */
-  status$ = this.store.pipe(select(DocsSelectors.selectDocsStatus));
-  allDocs$ = this.store.pipe(select(DocsSelectors.selectAllDocs), tap(console.log));
-  selectedDocs$ = this.store.pipe(select(DocsSelectors.selectEntity));
+  public readonly status$ = this.store.pipe(select(DocsSelectors.selectDocsStatus));
+  public readonly allDocs$ = this.store.pipe(select(DocsSelectors.selectAllDocs), tap(console.log));
+  public readonly selectedDocs$ = this.store.pipe(select(DocsSelectors.selectEntity));
+  public readonly openedDocument$ = this.store.select(DocsSelectors.selectOpenedDocument);
 
   /**
    * Use the initialization action to perform one

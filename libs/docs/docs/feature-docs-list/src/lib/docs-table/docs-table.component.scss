@@ -32,6 +32,11 @@
     }
   }
 
+  .mat-mdc-row.selected {
+    cursor: pointer;
+    border: 2px solid grey;
+  }
+
   .mat-mdc-row .mat-mdc-cell {
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;
@@ -116,6 +121,7 @@
     }
   }
 }
+
 
 @media (max-width: 820px) {
   .table-container {

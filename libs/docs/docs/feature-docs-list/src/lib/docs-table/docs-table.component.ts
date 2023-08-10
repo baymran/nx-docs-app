@@ -19,6 +19,7 @@ import {CdkTableModule} from "@angular/cdk/table";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import localeRu from '@angular/common/locales/ru';
+
 registerLocaleData(localeRu);
 
 @Component({
@@ -36,6 +37,7 @@ export class DocsTableComponent implements OnChanges, AfterViewInit {
 
   public dataSource = new MatTableDataSource<DocumentVm>();
   public showArchival = true;
+  public selectedRowId: number | null = null;
 
   displayedColumns: string[] = [
     'main',
@@ -49,7 +51,7 @@ export class DocsTableComponent implements OnChanges, AfterViewInit {
 
   ngOnChanges() {
     if (this.vm.docs) {
-      this.patchDataSource()
+      this.patchDataSource();
     }
   }
 
@@ -64,8 +66,21 @@ export class DocsTableComponent implements OnChanges, AfterViewInit {
       : this.vm.docs.filter(item => !item.archival);
   }
 
+  private clearSelection() {
+    this.selectedRowId = null
+  }
+
   public toggleArchival() {
     this.showArchival = !this.showArchival;
-    this.patchDataSource()
+    this.patchDataSource();
+    this.clearSelection();
+  }
+
+  public selectRow(row: DocumentVm) {
+    if (this.selectedRowId === row.id) {
+      this.clearSelection();
+    } else {
+      this.selectedRowId = row.id;
+    }
   }
 }

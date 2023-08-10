@@ -1,7 +1,7 @@
 {
-  "name": "docs-docs-feature-docs-detail",
+  "name": "docs-docs-feature-docs-editor",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/docs/docs/feature-docs-detail/src",
+  "sourceRoot": "libs/docs/docs/feature-docs-editor/src",
   "prefix": "documents",
   "tags": [],
   "projectType": "library",
@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/docs/docs/feature-docs-detail/jest.config.ts",
+        "jestConfig": "libs/docs/docs/feature-docs-editor/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -25,8 +25,8 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/docs/docs/feature-docs-detail/**/*.ts",
-          "libs/docs/docs/feature-docs-detail/**/*.html"
+          "libs/docs/docs/feature-docs-editor/**/*.ts",
+          "libs/docs/docs/feature-docs-editor/**/*.html"
         ]
       }
     }

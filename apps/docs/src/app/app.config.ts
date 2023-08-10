@@ -16,13 +16,15 @@ import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import {docsEffects, DocsFacade, fromDocs} from "@docs/data-access";
+import {provideRouterStore, routerReducer} from "@ngrx/router-store";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     DocsFacade,
-    provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
-    provideStore(),
+    provideStore({router: routerReducer}),
     provideState(fromDocs.DOCS_FEATURE_KEY, fromDocs.docsReducer),
+    provideRouterStore(),
+    provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     provideEffects(docsEffects),
     DocsFacade,
     provideHttpClient(),

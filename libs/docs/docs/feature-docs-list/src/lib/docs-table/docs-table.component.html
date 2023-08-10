@@ -4,10 +4,10 @@
       <button mat-raised-button color="primary" aria-label="Добавить">
         <mat-icon>add</mat-icon>Добавить
       </button>
-      <button mat-raised-button color="accent" aria-label="Редактировать">
+      <button mat-raised-button color="accent" aria-label="Редактировать" [disabled]="!selectedRowId">
         <mat-icon>edit</mat-icon>Изменить
       </button>
-      <button mat-raised-button color="warn" aria-label="Удалить">
+      <button mat-raised-button color="warn" aria-label="Удалить" [disabled]="!selectedRowId">
         <mat-icon>delete</mat-icon>Удалить
       </button>
     </div>
@@ -44,7 +44,9 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'archival': row.archival}">
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+             [ngClass]="{'archival': row.archival, 'selected': row.id === selectedRowId}"
+             (click)="selectRow(row)">
     </mat-row>
   </mat-table>
   <mat-paginator class="mat-paginator" [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>

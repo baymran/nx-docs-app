@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'docs-docs-feature-docs-detail',
+  displayName: 'docs-docs-feature-docs-editor',
   preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../../coverage/libs/docs/docs/feature-docs-detail',
+  coverageDirectory: '../../../../coverage/libs/docs/docs/feature-docs-editor',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
