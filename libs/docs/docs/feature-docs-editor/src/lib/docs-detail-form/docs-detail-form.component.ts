@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  Output
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {DocumentVm} from "../../../../document-vm";
 import {DocTypesList, OrganizationsList} from "@core/data-access";
@@ -25,7 +34,7 @@ type FormData = {
   styleUrls: ['./docs-detail-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DocsDetailFormComponent {
+export class DocsDetailFormComponent implements OnChanges {
   @Input({required: true}) formData!: FormData;
   @Output() closed = new EventEmitter()
   private fb: FormBuilder = inject(FormBuilder);
@@ -39,6 +48,12 @@ export class DocsDetailFormComponent {
       main: [false],
       archival: [false],
     });
+
+  ngOnChanges() {
+    if (this.formData.document) {
+        this.form.patchValue(this.formData.document);
+      }
+  }
 
   public submitForm() {
     if (this.form.valid) {

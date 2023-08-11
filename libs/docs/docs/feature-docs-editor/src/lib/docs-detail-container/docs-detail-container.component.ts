@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {DocsDetailComponentStore} from "./docs-detail-container.store";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {DocsDetailModalComponent} from "../docs-detail-modal/docs-detail-modal.component";
 
 @Component({
   selector: 'docs-detail-container',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatDialogModule],
   templateUrl: './docs-detail-container.component.html',
   styleUrls: ['./docs-detail-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

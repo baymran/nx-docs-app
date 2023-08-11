@@ -9,12 +9,9 @@ export const appRoutes: Route[] = [
   {
     path: 'documents',
     loadComponent: () => import('@docs/feature-docs-list').then(c => c.DocsTableContainerComponent),
-    children: [
-      {
-        path: ':id',
-        loadComponent: () => import('@docs/feature-docs-editor').then(c => c.DocsDetailContainerComponent),
-        pathMatch: 'full'
-      }
-    ]
+  },
+  {
+    path: 'documents/:id',
+    loadComponent: () => import('@docs/feature-docs-editor').then(c => c.DocsDetailContainerComponent)
   }
 ];

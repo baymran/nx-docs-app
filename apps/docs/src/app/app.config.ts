@@ -17,6 +17,9 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import {docsEffects, DocsFacade, fromDocs} from "@docs/data-access";
 import {provideRouterStore, routerReducer} from "@ngrx/router-store";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {provideEnvironmentNgxMask} from "ngx-mask";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,6 +36,9 @@ export const appConfig: ApplicationConfig = {
       useValue: environment.api_url,
     },
     { provide: LOCALE_ID, useValue: 'ru' },
+    importProvidersFrom(MatDatepickerModule,
+    MatNativeDateModule),
+    provideEnvironmentNgxMask(),
     provideAnimations(),
     provideStoreDevtools({ logOnly: !isDevMode() }),
   ],
