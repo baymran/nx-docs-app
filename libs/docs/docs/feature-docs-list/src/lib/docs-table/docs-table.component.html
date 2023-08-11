@@ -4,7 +4,7 @@
       <button mat-raised-button color="primary" aria-label="Добавить">
         <mat-icon>add</mat-icon>Добавить
       </button>
-      <button mat-raised-button color="accent" aria-label="Редактировать" [disabled]="!selectedRowId">
+      <button (click)="editButtonHandler()" mat-raised-button color="accent" aria-label="Редактировать" [disabled]="!selectedRowId">
         <mat-icon>edit</mat-icon>Изменить
       </button>
       <button mat-raised-button color="warn" aria-label="Удалить" [disabled]="!selectedRowId">

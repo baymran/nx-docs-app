@@ -12,7 +12,8 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: ':id',
-        // loadComponent: () => import('@docs/feature-docs-composer').then(c => c.FFF)
+        loadComponent: () => import('@docs/feature-docs-editor').then(c => c.DocsDetailContainerComponent),
+        pathMatch: 'full'
       }
     ]
   }

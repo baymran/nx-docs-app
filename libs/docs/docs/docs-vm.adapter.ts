@@ -6,7 +6,7 @@ type DocsVmAdapter = {
 }
 
 export const docsVMAdapter: DocsVmAdapter = {
-  entityToVM({ id, organization, type, series, number, main, archival, dateOfIssue }) {
-    return {id, organization, type, series, number, main, archival, dateOfIssue}
+  entityToVM({ id, organization, type, series, number, main, archival, dateOfIssue, departmentCode }) {
+    return {id, organization, type, series, number, main, archival, dateOfIssue, departmentCode}
   }
 }

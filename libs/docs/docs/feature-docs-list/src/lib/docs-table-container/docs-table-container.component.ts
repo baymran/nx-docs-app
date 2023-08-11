@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {DocumentsListComponentStore} from "./docs-table-container.store";
 import {LetDirective} from "@ngrx/component";
 import {DocsTableComponent} from "../docs-table/docs-table.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'docs-table-container',
@@ -15,6 +16,11 @@ import {DocsTableComponent} from "../docs-table/docs-table.component";
 })
 export class DocsTableContainerComponent {
   private readonly componentStore = inject(DocumentsListComponentStore);
+  private router = inject(Router);
   public readonly docs$ = this.componentStore.docs$;
   public readonly status$ = this.componentStore.status$;
+
+  public redirectToEditor(id: number) {
+    this.router.navigate(['/documents', id])
+  }
 }

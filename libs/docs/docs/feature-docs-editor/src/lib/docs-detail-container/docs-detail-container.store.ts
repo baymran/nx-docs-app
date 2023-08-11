@@ -24,9 +24,9 @@ const initialState: DocsDetailState = {
 export class DocsDetailComponentStore extends ComponentStore<DocsDetailState> {
   private readonly docsFacade = inject(DocsFacade);
   private readonly apiService = inject(ApiService);
-  private readonly openedDocument$ = this.select(({document}) => document);
-  private readonly organizations$ = this.select(({organizations}) => organizations);
-  private readonly documentTypes$ = this.select(({documentTypes}) => documentTypes);
+  public readonly openedDocument$ = this.select(({document}) => document);
+  public readonly organizations$ = this.select(({organizations}) => organizations);
+  public readonly documentTypes$ = this.select(({documentTypes}) => documentTypes);
   // public readonly docs$ = this.select(({docs}) => docs)
   // public readonly status$: Observable<LoadingStatus> = this.select(this.docsFacade.status$, status => status)
 

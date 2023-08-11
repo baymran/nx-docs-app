@@ -1,0 +1,43 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Вид документа</mat-label>
+    <mat-select formControlName="type" required>
+      <mat-option *ngFor="let docType of formData.docTypes" [value]="docType">
+        {{ docType }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+<!--  // "id" | "organization" | "type" | "series" | "number" | "dateOfIssue" | "main" | "archival">-->
+  <mat-form-field>
+    <mat-label>Серия</mat-label>
+    <input matInput formControlName="series" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Номер</mat-label>
+    <input matInput formControlName="number" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Дата выдачи</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="dateOfIssue">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Организация, выдавшая документ</mat-label>
+    <input matInput formControlName="organization">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Код подразделения</mat-label>
+    <input matInput formControlName="departmentCode" mask="999-999">
+  </mat-form-field>
+
+  <mat-checkbox formControlName="main">Основной документ</mat-checkbox>
+  <mat-checkbox formControlName="archival">Архивный документ</mat-checkbox>
+
+  <button mat-button [disabled]="form.invalid" (click)="submitForm()">Сохранить</button>
+  <button mat-button (click)="closeModal()">Выход</button>
+</form>

@@ -1,8 +1,8 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  Component, Input,
-  OnChanges, ViewChild
+  Component, EventEmitter, Input,
+  OnChanges, Output, ViewChild
 } from '@angular/core';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
@@ -32,6 +32,7 @@ registerLocaleData(localeRu);
 })
 export class DocsTableComponent implements OnChanges, AfterViewInit {
   @Input({required: true}) vm!: DocsListVm;
+  @Output() editClicked = new EventEmitter<number>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -83,4 +84,11 @@ export class DocsTableComponent implements OnChanges, AfterViewInit {
       this.selectedRowId = row.id;
     }
   }
+
+  public editButtonHandler() {
+    if (this.selectedRowId) {
+      this.editClicked.emit(this.selectedRowId);
+    }
+  }
+
 }
