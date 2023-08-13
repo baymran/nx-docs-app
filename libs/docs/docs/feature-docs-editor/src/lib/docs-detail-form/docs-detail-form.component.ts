@@ -19,7 +19,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {NgxMaskDirective} from "ngx-mask";
 import {CapitalizeFirstLetterPipe} from "@core/utils";
 
-type FormData = {
+type FormInputData = {
   document: DocumentVm,
   organizations: OrganizationsList,
   docTypes: DocTypesList
@@ -34,36 +34,36 @@ type FormData = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocsDetailFormComponent implements OnChanges {
-  @Input({required: true}) formData!: FormData;
-  @Output() closed = new EventEmitter()
+  @Input({required: true}) formInput!: FormInputData;
+  @Output() formSubmitted = new EventEmitter<DocumentVm>();
+  @Output() formClosed = new EventEmitter();
   private fb: FormBuilder = inject(FormBuilder);
   public readonly form: FormGroup = this.fb.group({
       type: ['', Validators.required],
       series: ['', Validators.required],
       number: ['', Validators.required],
-      dateOfIssue: [''],
-      organization: [''],
-      departmentCode: [''],
+      dateOfIssue: ['', Validators.required],
+      organization: ['', Validators.required],
+      departmentCode: ['', Validators.required],
       main: [false],
       archival: [false],
     });
 
   ngOnChanges() {
     setTimeout(() => {
-      if (this.formData.document) {
-        this.form.patchValue(this.formData.document);
+      if (this.formInput.document) {
+        this.form.patchValue(this.formInput.document);
       }
     }, 0)
   }
 
   public submitForm() {
     if (this.form.valid) {
-      this.closed.emit(this.form.value);
+      this.formSubmitted.emit({...this.form.value});
     }
   }
 
   public closeModal() {
-    this.closed.emit();
+    this.formClosed.emit();
   }
-
 }

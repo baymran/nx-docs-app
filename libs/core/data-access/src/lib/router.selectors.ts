@@ -28,7 +28,20 @@ const selectIdFromUrl = (url: string | undefined) => {
   return null;
 };
 
+const selectNewFromUrl = (url: string | undefined) => {
+  if (url) {
+    const detailMatch = url.match(/detail:(\w+)/);
+    return detailMatch ? detailMatch[1] === 'new' : false;
+  }
+  return false;
+};
+
 export const selectDetailIdFromURL = createSelector(
   selectUrl,
   (url) => selectIdFromUrl(url)
+);
+
+export const selectNewValueFromURL = createSelector(
+  selectUrl,
+  (url) => selectNewFromUrl(url)
 );

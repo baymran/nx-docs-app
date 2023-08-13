@@ -21,7 +21,7 @@ export class DocsTableContainerComponent {
   public readonly docs$ = this.componentStore.docs$;
   public readonly status$ = this.componentStore.status$;
 
-  public redirectToEditor(id: number) {
+  public redirectToEditor(id: number | 'new') {
     this.router.navigate(['', { outlets: { detail: [id]} }], {relativeTo: this.route.parent});
   }
 }

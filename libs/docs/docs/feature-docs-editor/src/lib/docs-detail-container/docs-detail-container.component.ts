@@ -29,8 +29,6 @@ export class DocsDetailContainerComponent implements OnInit {
       organizations$: this.organizations$,
       documentTypes$: this.documentTypes$
     },
-    // width: '50%',
-    // height: '65vh',
     autoFocus: false,
     restoreFocus: false,
     backdropClass: ['modal-backdrop'],
@@ -39,10 +37,16 @@ export class DocsDetailContainerComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+    this.dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
 
       // this.router.navigate([''], {relativeTo: this.route.root})
       this.router.navigate([{outlets: {detail: null}}])
     })
+
+    this.dialogRef.componentInstance.formSubmitted.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+
+    });
   }
 }

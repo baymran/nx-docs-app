@@ -5,6 +5,7 @@ import * as DocsActions from './docs.actions';
 import * as DocsFeature from './docs.reducer';
 import * as DocsSelectors from './docs.selectors';
 import {tap} from "rxjs";
+import {DocumentEntity, selectNewValueFromURL} from "@core/data-access";
 
 @Injectable()
 export class DocsFacade {
@@ -15,9 +16,10 @@ export class DocsFacade {
    * and expose them as observables through the facade.
    */
   public readonly status$ = this.store.pipe(select(DocsSelectors.selectDocsStatus));
-  public readonly allDocs$ = this.store.pipe(select(DocsSelectors.selectAllDocs), tap(console.log));
+  public readonly allDocs$ = this.store.pipe(select(DocsSelectors.selectAllDocs));
   public readonly selectedDocs$ = this.store.pipe(select(DocsSelectors.selectEntity));
   public readonly openedDocument$ = this.store.select(DocsSelectors.selectOpenedDocument);
+  public readonly isCreationMode$ = this.store.select(selectNewValueFromURL);
 
   /**
    * Use the initialization action to perform one
@@ -29,5 +31,13 @@ export class DocsFacade {
 
   public loadDocumentFromUrl() {
     this.store.dispatch(DocsActions.loadOneDocument.loadDocument())
+  }
+
+  public createDocument(document: DocumentEntity) {
+    this.store.dispatch(createDocument({data}));
+  }
+
+  public updateDocument(document: DocumentEntity) {
+    this.store.dispatch(updateDocument({data}));
   }
 }

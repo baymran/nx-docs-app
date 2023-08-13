@@ -32,7 +32,8 @@ registerLocaleData(localeRu);
 })
 export class DocsTableComponent implements OnChanges, AfterViewInit {
   @Input({required: true}) vm!: DocsListVm;
-  @Output() editClicked = new EventEmitter<number>();
+  @Output() editButtonClicked = new EventEmitter<number>();
+  @Output() addButtonClicked = new EventEmitter<'new'>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -85,9 +86,13 @@ export class DocsTableComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  public addButtonHandler() {
+    this.addButtonClicked.emit('new')
+  }
+
   public editButtonHandler() {
     if (this.selectedRowId) {
-      this.editClicked.emit(this.selectedRowId);
+      this.editButtonClicked.emit(this.selectedRowId);
     }
   }
 

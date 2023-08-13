@@ -2,6 +2,6 @@
   document: data.document$,
   organizations: data.organizations$,
   docTypes: data.documentTypes$
-} as formData">
-  <docs-detail-form [formData]="formData" (closed)="close()"></docs-detail-form>
+} as formInputData">
+  <docs-detail-form [formInput]="formInputData" (formClosed)="close()" (formSubmitted)="transferFormData($event)"></docs-detail-form>
 </ng-container>

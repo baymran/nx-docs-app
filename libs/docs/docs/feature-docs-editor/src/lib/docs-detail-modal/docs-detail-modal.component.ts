@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, inject, OnDestroy, OnInit, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {LetDirective} from "@ngrx/component";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
@@ -22,6 +22,7 @@ type DocumentData = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocsDetailModalComponent implements OnInit, OnDestroy {
+  @Output() formSubmitted = new EventEmitter<DocumentVm>()
   private readonly dialogRef: MatDialogRef<DocsDetailModalComponent> = inject(MatDialogRef);
   public readonly data: DocumentData = inject(MAT_DIALOG_DATA);
 
@@ -35,5 +36,9 @@ export class DocsDetailModalComponent implements OnInit, OnDestroy {
 
   public close() {
     this.dialogRef.close();
+  }
+
+  public transferFormData(data: DocumentVm) {
+    this.formSubmitted.emit(data)
   }
 }

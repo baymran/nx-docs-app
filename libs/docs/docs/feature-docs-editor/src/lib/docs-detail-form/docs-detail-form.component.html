@@ -1,11 +1,11 @@
 <div class="modal-form">
-  <form [formGroup]="form" class="form">
+  <form (submit)="submitForm()" [formGroup]="form" class="form">
     <h2 class="form-title">Документ</h2>
     <div class="form-fields">
       <mat-form-field class="half-width">
         <mat-label>Вид документа</mat-label>
         <mat-select formControlName="type" required>
-          <mat-option *ngFor="let docType of formData.docTypes" [value]="docType">
+          <mat-option *ngFor="let docType of formInput.docTypes" [value]="docType">
             {{ docType | capitalizeFirstLetter }}
           </mat-option>
         </mat-select>
@@ -13,7 +13,7 @@
       <mat-form-field class="half-width">
         <mat-label>Наименование организации</mat-label>
         <mat-select formControlName="organization" required>
-          <mat-option *ngFor="let org of formData.organizations" [value]="org">
+          <mat-option *ngFor="let org of formInput.organizations" [value]="org">
             {{ org }}
           </mat-option>
         </mat-select>
@@ -40,7 +40,7 @@
       <mat-checkbox formControlName="archival">Архивный документ</mat-checkbox>
     </div>
     <div class="form-buttons">
-      <button mat-button color="primary" [disabled]="form.invalid" (click)="submitForm()">Сохранить</button>
+      <button mat-button color="primary" [disabled]="form.invalid" type="submit">Сохранить</button>
       <button mat-button  (click)="closeModal()">Выход</button>
     </div>
   </form>
