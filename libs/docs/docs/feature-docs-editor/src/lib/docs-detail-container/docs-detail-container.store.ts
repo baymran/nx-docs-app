@@ -63,9 +63,7 @@ export class DocsDetailComponentStore extends ComponentStore<DocsDetailState> {
   }
 
   private patchDocument(document: DocumentVm): void {
-    this.patchState({
-      document: {...document}
-    })
+    this.patchState({document})
   }
 
   private fetchOrganizations() {

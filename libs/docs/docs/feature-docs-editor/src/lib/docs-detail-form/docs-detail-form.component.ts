@@ -17,6 +17,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatButtonModule} from "@angular/material/button";
 import {NgxMaskDirective} from "ngx-mask";
+import {CapitalizeFirstLetterPipe} from "@core/utils";
 
 type FormData = {
   document: DocumentVm,
@@ -27,7 +28,7 @@ type FormData = {
 @Component({
   selector: 'docs-detail-form',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule, MatInputModule, MatDatepickerModule, MatCheckboxModule, MatButtonModule, NgxMaskDirective],
+  imports: [CommonModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule, MatInputModule, MatDatepickerModule, MatCheckboxModule, MatButtonModule, NgxMaskDirective, CapitalizeFirstLetterPipe],
   templateUrl: './docs-detail-form.component.html',
   styleUrls: ['./docs-detail-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {LetDirective} from "@ngrx/component";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
@@ -21,10 +21,17 @@ type DocumentData = {
   styleUrls: ['./docs-detail-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DocsDetailModalComponent {
+export class DocsDetailModalComponent implements OnInit, OnDestroy {
   private readonly dialogRef: MatDialogRef<DocsDetailModalComponent> = inject(MatDialogRef);
   public readonly data: DocumentData = inject(MAT_DIALOG_DATA);
 
+  ngOnInit() {
+    document.body.classList.add("cdk-global-scrollblock");
+  }
+
+  ngOnDestroy() {
+    document.body.classList.remove("cdk-global-scrollblock");
+  }
 
   public close() {
     this.dialogRef.close();
