@@ -1,9 +1,12 @@
-import { inject } from '@angular/core';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
+import {inject} from '@angular/core';
+import {createEffect, Actions, ofType} from '@ngrx/effects';
 import {switchMap, catchError, of, map, withLatestFrom} from 'rxjs';
 import * as DocsActions from './docs.actions';
 import {ApiService} from "@core/http";
-import {docsDtoAdapter, DocumentDTO, selectRouteParams} from "@core/data-access";
+import {
+  docsDtoAdapter,
+  DocumentDTO, selectDetailIdFromURL
+} from "@core/data-access";
 import {Store} from "@ngrx/store";
 
 
@@ -24,12 +27,12 @@ export const docsEffects = createEffect(
           ),
           catchError((error) => {
             console.error('Error', error);
-            return of(DocsActions.loadDocsFailure({ error }));
+            return of(DocsActions.loadDocsFailure({error}));
           })
         )
       ),
     )
-  }, { functional: true }
+  }, {functional: true}
 )
 
 export const loadOneDocument = createEffect(
@@ -41,11 +44,11 @@ export const loadOneDocument = createEffect(
     return actions$.pipe(
       ofType(DocsActions.loadOneDocument.loadDocument),
       // delay(1500),
-      withLatestFrom(store.select(selectRouteParams)),
+      withLatestFrom(store.select(selectDetailIdFromURL)),
       switchMap(
-        ([, params]) => {
-          if(params['id']) {
-            return apiService.get<DocumentDTO>(`/documents/${params['id']}`).pipe(
+        ([, id]) => {
+          if (id) {
+            return apiService.get<DocumentDTO>(`/documents/${id}`).pipe(
               map((document) => docsDtoAdapter.DTOtoEntity(document)),
               map((document) =>
                 DocsActions.loadOneDocument.loadDocumentSuccess({document})),
@@ -55,9 +58,9 @@ export const loadOneDocument = createEffect(
               })
             )
           }
-          return of(DocsActions.loadOneDocument.loadDocumentFailure({ error: 'User not found' }));
+          return of(DocsActions.loadOneDocument.loadDocumentFailure({error: 'User not found'}));
         }
       ),
     )
-  }, { functional: true }
+  }, {functional: true}
 )

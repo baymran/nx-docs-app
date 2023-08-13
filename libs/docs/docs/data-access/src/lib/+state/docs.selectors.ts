@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { DOCS_FEATURE_KEY, DocsState, docsAdapter } from './docs.reducer';
-import {selectRouteParams} from "@core/data-access";
+import {selectDetailIdFromURL} from "@core/data-access";
 
 // Lookup the 'Docs' feature state managed by NgRx
 export const selectDocsState =
@@ -40,7 +40,7 @@ export const selectEntity = createSelector(
 );
 
 export const selectOpenedDocument = createSelector(
-  selectRouteParams,
+  selectDetailIdFromURL,
   selectDocsEntities,
-  ({id}, entities) => entities[id] || null
+  (id, entities) => id ? entities[id] : null
 )

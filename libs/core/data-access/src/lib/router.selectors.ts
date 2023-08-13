@@ -1,4 +1,7 @@
-import { getRouterSelectors, RouterReducerState } from '@ngrx/router-store';
+// noinspection JSUnusedGlobalSymbols
+
+import { getRouterSelectors } from '@ngrx/router-store';
+import {createSelector} from "@ngrx/store";
 
 // `router` is used as the default feature name. You can use the feature name
 // of your choice by creating a feature selector and pass it to the `getRouterSelectors` function
@@ -16,3 +19,16 @@ export const {
     selectUrl, // select the current url
     selectTitle, // select the title if available
 } = getRouterSelectors();
+
+const selectIdFromUrl = (url: string | undefined) => {
+  if (url) {
+    const detailMatch = url.match(/detail:(\d+)/);
+    return detailMatch ? +detailMatch[1] : null;
+  }
+  return null;
+};
+
+export const selectDetailIdFromURL = createSelector(
+  selectUrl,
+  (url) => selectIdFromUrl(url)
+);

@@ -1,11 +1,9 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
+  ChangeDetectionStrategy, Component,
   EventEmitter,
   inject,
   Input,
   OnChanges,
-  OnInit,
   Output
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -50,9 +48,11 @@ export class DocsDetailFormComponent implements OnChanges {
     });
 
   ngOnChanges() {
-    if (this.formData.document) {
+    setTimeout(() => {
+      if (this.formData.document) {
         this.form.patchValue(this.formData.document);
       }
+    }, 0)
   }
 
   public submitForm() {

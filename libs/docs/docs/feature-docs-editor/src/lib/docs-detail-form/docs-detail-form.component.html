@@ -25,14 +25,18 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Организация, выдавшая документ</mat-label>
-    <input matInput formControlName="organization">
+   <mat-form-field>
+    <mat-label>Наименование организации</mat-label>
+    <mat-select formControlName="organization" required>
+      <mat-option *ngFor="let org of formData.organizations" [value]="org">
+        {{ org }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Код подразделения</mat-label>
-    <input matInput formControlName="departmentCode" mask="999-999">
+    <input matInput formControlName="departmentCode" [mask]="'000-000'">
   </mat-form-field>
 
   <mat-checkbox formControlName="main">Основной документ</mat-checkbox>

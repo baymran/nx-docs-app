@@ -25,6 +25,7 @@ export class DocsDetailModalComponent {
   private readonly dialogRef: MatDialogRef<DocsDetailModalComponent> = inject(MatDialogRef);
   public readonly data: DocumentData = inject(MAT_DIALOG_DATA);
 
+
   public close() {
     this.dialogRef.close();
   }
