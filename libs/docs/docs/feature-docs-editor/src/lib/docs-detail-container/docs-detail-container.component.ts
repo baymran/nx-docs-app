@@ -29,11 +29,12 @@ export class DocsDetailContainerComponent implements OnInit {
       organizations$: this.organizations$,
       documentTypes$: this.documentTypes$
     },
-    width: '50%',
-    height: '65vh',
+    // width: '50%',
+    // height: '65vh',
     autoFocus: false,
     restoreFocus: false,
-    backdropClass: ['modal-backdrop']
+    backdropClass: ['modal-backdrop'],
+    panelClass: 'dialog-responsive'
   })
 
   ngOnInit() {

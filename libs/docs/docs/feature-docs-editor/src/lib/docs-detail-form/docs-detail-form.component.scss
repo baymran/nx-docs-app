@@ -2,35 +2,42 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.form {
-  width: 100%;
-  background-color: #fff;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+  .form {
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
 
-.form-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
+    .form-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
 
-.form-fields {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
+    .form-fields {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
 
-.half-width {
-  width: calc(100% - 10px);
-}
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
 
-.form-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+      .half-width {
+        width: calc(100% - 10px);
+      }
+    }
+
+    .form-buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+
+      button {
+        &:first-child {
+          margin-right: 30px;
+        }
+      }
+    }
+  }
 }
