@@ -1,15 +1,21 @@
-<ng-container
-  *ngrxLet="{
+<div class="table-container">
+  <ng-container
+    *ngrxLet="{
     docs: docs$,
     status: status$
 } as vm">
-  <ng-container *ngrxLet="{orgs: organizations$, docTypes: docTypes$} as directories">
-    <docs-search [directories]="directories" (submitted)="onSearch($event)"></docs-search>
+    <ng-container *ngIf="vm.status === 'loading'">
+      <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
+    </ng-container>
+    <ng-container *ngrxLet="{orgs: organizations$, docTypes: docTypes$} as directories">
+      <docs-search [directories]="directories" (submitted)="onSearch($event)"></docs-search>
+    </ng-container>
+    <docs-table
+      [vm]="vm"
+      (editButtonClicked)="redirectToEditor($event)"
+      (addButtonClicked)="redirectToEditor($event)"
+      (removeButtonClicked)="removeDocument($event)"
+    ></docs-table>
   </ng-container>
-  <docs-table
-    [vm]="vm"
-    (editButtonClicked)="redirectToEditor($event)"
-    (addButtonClicked)="redirectToEditor($event)"
-    (removeButtonClicked)="removeDocument($event)"
-  ></docs-table>
-</ng-container>
+</div>
+

@@ -20,13 +20,14 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import localeRu from '@angular/common/locales/ru';
 import {SearchComponent} from "@docs/feature-docs-list";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 registerLocaleData(localeRu);
 
 @Component({
   selector: 'docs-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatCheckboxModule, MatPaginatorModule, MatInputModule, MatSelectModule, MatSortModule, MatIconModule, CapitalizeFirstLetterPipe, CdkTableModule, MatMenuModule, MatButtonModule, SearchComponent],
+  imports: [CommonModule, MatTableModule, MatCheckboxModule, MatPaginatorModule, MatInputModule, MatSelectModule, MatSortModule, MatIconModule, CapitalizeFirstLetterPipe, CdkTableModule, MatMenuModule, MatButtonModule, SearchComponent, MatProgressBarModule],
   templateUrl: './docs-table.component.html',
   styleUrls: ['./docs-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

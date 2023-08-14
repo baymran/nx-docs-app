@@ -48,7 +48,7 @@ export class DocumentsListComponentStore extends ComponentStore<DocsListState> {
         map(docs =>
           docs.filter(doc =>
             (searchForm.number === null || searchForm.number === '' || doc.number.startsWith(searchForm.number)) &&
-            (searchForm.type === null || searchForm.type === '' || doc.type.includes(searchForm.type))
+            (searchForm.type === null || searchForm.type === '' || doc.type === searchForm.type)
           )
         )
       )

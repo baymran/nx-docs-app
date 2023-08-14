@@ -5,11 +5,12 @@ import {LetDirective} from "@ngrx/component";
 import {DocsTableComponent} from "../docs-table/docs-table.component";
 import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
 import {SearchComponent, SearchForm} from "../search/search.component";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @Component({
   selector: 'docs-table-container',
   standalone: true,
-  imports: [CommonModule, LetDirective, DocsTableComponent, RouterOutlet, SearchComponent],
+  imports: [CommonModule, LetDirective, DocsTableComponent, RouterOutlet, SearchComponent, MatProgressBarModule],
   templateUrl: './docs-table-container.component.html',
   styleUrls: ['./docs-table-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

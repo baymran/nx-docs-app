@@ -7,6 +7,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {DocTypeEntity, DocTypesList, OrganizationsList} from "@core/data-access";
 import {CapitalizeFirstLetterPipe} from "@core/utils";
+import {MatCardModule} from "@angular/material/card";
 
 export type SearchForm = {
   type: DocTypeEntity;
@@ -16,7 +17,7 @@ export type SearchForm = {
 @Component({
   selector: 'docs-search',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule, MatInputModule, MatButtonModule, CapitalizeFirstLetterPipe],
+  imports: [CommonModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule, MatInputModule, MatButtonModule, CapitalizeFirstLetterPipe, MatCardModule],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
