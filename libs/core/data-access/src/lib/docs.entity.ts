@@ -11,3 +11,5 @@ export type DocumentEntity = DeepReadonly<{
   main: boolean;
   archival: boolean;
 }>
+
+export type onSuccessEditionCbType = () => void

@@ -3,7 +3,7 @@ import { select, Store} from '@ngrx/store';
 
 import * as DocsActions from './docs.actions';
 import * as DocsSelectors from './docs.selectors';
-import {docsDtoAdapter, DocumentEntity, selectNewValueFromURL} from "@core/data-access";
+import {docsDtoAdapter, DocumentEntity, onSuccessEditionCbType, selectNewValueFromURL} from "@core/data-access";
 
 @Injectable()
 export class DocsFacade {
@@ -31,14 +31,14 @@ export class DocsFacade {
     this.store.dispatch(DocsActions.loadOneDocument.loadDocument())
   }
 
-  public createDocument(doc: DocumentEntity) {
+  public createDocument(doc: DocumentEntity, onSuccessCb: onSuccessEditionCbType) {
     const document = docsDtoAdapter.entityToDTO(doc)
-    this.store.dispatch(DocsActions.addNewDocument.addDocument({document}));
+    this.store.dispatch(DocsActions.addNewDocument.addDocument({document, onSuccessCb}));
   }
 
-  public updateDocument(doc: DocumentEntity) {
+  public updateDocument(doc: DocumentEntity, onSuccessCb: onSuccessEditionCbType) {
     const document = docsDtoAdapter.entityToDTO(doc)
-    this.store.dispatch(DocsActions.updateDocument.updateDocument({document}))
+    this.store.dispatch(DocsActions.updateDocument.updateDocument({document, onSuccessCb}))
   }
 
   public removeDocument(id: number) {

@@ -73,9 +73,10 @@ export const addOneDocument = createEffect(
     const apiService = inject(ApiService);
     return actions$.pipe(
       ofType(DocsActions.addNewDocument.addDocument),
-      switchMap(({document}) => apiService.post<DocumentDTO, CreateDocumentDTO>(
+      switchMap(({document, onSuccessCb}) => apiService.post<DocumentDTO, CreateDocumentDTO>(
         `/documents/`, document
       ).pipe(
+        tap(() => onSuccessCb()),
         map(document => docsDtoAdapter.DTOtoEntity(document)),
         map(document => DocsActions.addNewDocument.addDocumentSuccess({document})),
         catchError(error => of(DocsActions.addNewDocument.addDocumentFailure({error})))
@@ -97,12 +98,16 @@ export const editDocument = createEffect(
       filter(([{document}, docsEntities]) =>
         Boolean(document.id && docsEntities[document.id])
       ),
-      map(([{document}, docsEntities]) => ({
-        ...docsEntities[document.id],
+      map(([{document, onSuccessCb}, docsEntities]) => ({
+        document: {
+          ...docsEntities[document.id],
         ...document
+        },
+        onSuccessCb
       })),
-      switchMap((document) =>
+      switchMap(({document, onSuccessCb}) =>
         apiService.put<DocumentDTO, DocumentDTO>(`/documents/${document.id}`, document).pipe(
+          tap(() => onSuccessCb()),
           map(document => docsDtoAdapter.DTOtoEntity(document)),
           map(document =>
             DocsActions.updateDocument.updateDocumentSuccess({document})),

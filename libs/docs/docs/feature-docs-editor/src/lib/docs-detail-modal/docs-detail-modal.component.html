@@ -1,7 +1,20 @@
 <ng-container *ngrxLet="{
   document: data.document$,
   organizations: data.organizations$,
-  docTypes: data.documentTypes$
+  docTypes: data.documentTypes$,
+  mode: data.mode$
 } as formInputData">
   <docs-detail-form [formInput]="formInputData" (formClosed)="close()" (formSubmitted)="transferFormData($event)"></docs-detail-form>
+  <ng-template #snackbarOnEdit>
+  <div class="edit-document-snackbar">
+    <span *ngIf="formInputData.mode === 'edit'">
+      Документ успешно изменён!
+    </span>
+
+    <span *ngIf="formInputData.mode === 'create'">
+      Документ успешно создан!
+    </span>
+  </div>
+</ng-template>
 </ng-container>
+

@@ -1,5 +1,11 @@
 import {DocumentVm} from "../../../../document-vm";
-import {DocTypesList, DocTypesListDTO, OrganizationsList, OrganizationsListDTO} from "@core/data-access";
+import {
+  DocTypesList,
+  DocTypesListDTO,
+  onSuccessEditionCbType,
+  OrganizationsList,
+  OrganizationsListDTO
+} from "@core/data-access";
 import {ComponentStore} from "@ngrx/component-store";
 import {inject, Injectable} from "@angular/core";
 import {DocsFacade} from "@docs/data-access";
@@ -31,6 +37,7 @@ export class DocsDetailComponentStore extends ComponentStore<DocsDetailState> {
   public readonly organizations$ = this.select(({organizations}) => organizations);
   public readonly documentTypes$ = this.select(({documentTypes}) => documentTypes);
   public readonly isCreationMode$ = this.docsFacade.isCreationMode$
+  public readonly mode$ = this.select(({mode}) => mode )
   // public readonly docs$ = this.select(({docs}) => docs)
   // public readonly status$: Observable<LoadingStatus> = this.select(this.docsFacade.status$, status => status)
 
@@ -107,28 +114,28 @@ export class DocsDetailComponentStore extends ComponentStore<DocsDetailState> {
     );
   }
 
-  public sendData(data: DocumentVm) {
+  public sendData(data: DocumentVm, onSuccessCb: onSuccessEditionCbType) {
     const selectMode = (state: DocsDetailState) => state.mode;
 
     if (this.get(selectMode) === 'create') {
-      this.createDocument(data);
+      this.createDocument(data, onSuccessCb);
     } else {
-      this.updateDocument(data);
+      this.updateDocument(data, onSuccessCb);
     }
 
   }
 
-  private createDocument(data: DocumentVm) {
+  private createDocument(data: DocumentVm, onSuccessCb: onSuccessEditionCbType) {
     const document = docsVMAdapter.VMToEntity(data)
-    this.docsFacade.createDocument(document);
+    this.docsFacade.createDocument(document, onSuccessCb);
   }
 
-  private updateDocument(data: DocumentVm) {
+  private updateDocument(data: DocumentVm, onSuccessCb: onSuccessEditionCbType) {
     const selectId = (state: DocsDetailState) => state.document?.id;
     const id = this.get(selectId);
     if (id) {
       const document = {...docsVMAdapter.VMToEntity(data), id}
-      this.docsFacade.updateDocument(document);
+      this.docsFacade.updateDocument(document, onSuccessCb);
     }
   }
 }

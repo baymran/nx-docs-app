@@ -1,5 +1,6 @@
 import {createAction, createActionGroup, emptyProps, props} from '@ngrx/store';
-import {CreateDocumentDTO, DocumentDTO, DocumentEntity} from "@core/data-access";
+import {CreateDocumentDTO, DocumentDTO, DocumentEntity, onSuccessEditionCbType} from "@core/data-access";
+
 
 export const initDocs = createAction('[Docs Page] Init');
 
@@ -25,7 +26,7 @@ export const loadOneDocument = createActionGroup({
 export const addNewDocument = createActionGroup({
   source: 'Documents List',
   events: {
-    'Add Document': props<{document: CreateDocumentDTO}>(),
+    'Add Document': props<{document: CreateDocumentDTO, onSuccessCb: onSuccessEditionCbType}>(),
     'Add Document Success': props<{document: DocumentEntity}>(),
     'Add Document Failure': props<{error: any}>()
   }
@@ -34,7 +35,7 @@ export const addNewDocument = createActionGroup({
 export const updateDocument = createActionGroup({
   source: 'Documents List',
   events: {
-    'Update Document': props<{document: DocumentDTO}>(),
+    'Update Document': props<{document: DocumentDTO, onSuccessCb: onSuccessEditionCbType}>(),
     'Update Document Success': props<{document: DocumentEntity}>(),
     'Update Document Failure': props<{error: any}>()
   }
