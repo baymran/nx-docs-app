@@ -2,10 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { select, Store, Action } from '@ngrx/store';
 
 import * as DocsActions from './docs.actions';
-import * as DocsFeature from './docs.reducer';
 import * as DocsSelectors from './docs.selectors';
-import {tap} from "rxjs";
-import {DocumentEntity, selectNewValueFromURL} from "@core/data-access";
+import {docsDtoAdapter, DocumentEntity, selectNewValueFromURL} from "@core/data-access";
 
 @Injectable()
 export class DocsFacade {
@@ -33,11 +31,13 @@ export class DocsFacade {
     this.store.dispatch(DocsActions.loadOneDocument.loadDocument())
   }
 
-  public createDocument(document: DocumentEntity) {
-    this.store.dispatch(createDocument({data}));
+  public createDocument(doc: DocumentEntity) {
+    const document = docsDtoAdapter.entityToDTO(doc)
+    this.store.dispatch(DocsActions.addNewDocument.addDocument({document}));
   }
 
-  public updateDocument(document: DocumentEntity) {
-    this.store.dispatch(updateDocument({data}));
+  public updateDocument(doc: DocumentEntity) {
+    const document = docsDtoAdapter.entityToDTO(doc)
+    this.store.dispatch(DocsActions.updateDocument.updateDocument({document}))
   }
 }

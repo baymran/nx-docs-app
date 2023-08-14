@@ -124,7 +124,11 @@ export class DocsDetailComponentStore extends ComponentStore<DocsDetailState> {
   }
 
   private updateDocument(data: DocumentVm) {
-    const document = docsVMAdapter.VMToEntity(data)
-    this.docsFacade.updateDocument(document);
+    const selectId = (state: DocsDetailState) => state.document?.id;
+    const id = this.get(selectId);
+    if (id) {
+      const document = {...docsVMAdapter.VMToEntity(data), id}
+      this.docsFacade.updateDocument(document);
+    }
   }
 }

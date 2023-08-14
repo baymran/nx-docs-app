@@ -3,7 +3,7 @@ import {DocumentDTO, DocumentEntity} from "../index";
 
 type DocumentsDTOAdapter = {
   DTOtoEntity(dto: DocumentDTO): DocumentEntity,
-  // entityToDTO(entity: DocumentEntity): DocumentDTO
+  entityToDTO(entity: DocumentEntity): DocumentDTO
 }
 
 export const docsDtoAdapter: DocumentsDTOAdapter = {
@@ -21,14 +21,23 @@ export const docsDtoAdapter: DocumentsDTOAdapter = {
       id, organization, series, number, type, main, archival,
       dateOfIssue: d.date_of_issue,
       departmentCode: d.department_code
+    }
+  },
+  entityToDTO(entity: DocumentEntity): DocumentDTO {
+    const {
+      id,
+      organization,
+      series,
+      number,
+      type,
+      main,
+      archival,
+      ...e
+    } = entity;
+    return {
+      id, organization, series, number, type, main, archival,
+      date_of_issue: e.dateOfIssue,
+      department_code: e.departmentCode
+    }
   }
-}
-// entityToDTO(entity) {
-//   // const { isAdmin, ...otherFields } = entity;
-//   //
-//   // return {
-//   //   ...otherFields,
-//   //   role: isAdmin ? 'admin' : 'user',
-//   // };
-// }
 }

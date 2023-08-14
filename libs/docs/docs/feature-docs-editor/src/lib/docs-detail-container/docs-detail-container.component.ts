@@ -46,7 +46,7 @@ export class DocsDetailContainerComponent implements OnInit {
 
     this.dialogRef.componentInstance.formSubmitted.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
-
+        this.componentStore.sendData(data);
     });
   }
 }

@@ -6,7 +6,7 @@ import {
   OnChanges,
   Output
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {DocumentVm} from "../../../../document-vm";
 import {DocTypesList, OrganizationsList} from "@core/data-access";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -32,22 +32,24 @@ type FormInputData = {
   templateUrl: './docs-detail-form.component.html',
   styleUrls: ['./docs-detail-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DatePipe]
 })
 export class DocsDetailFormComponent implements OnChanges {
   @Input({required: true}) formInput!: FormInputData;
   @Output() formSubmitted = new EventEmitter<DocumentVm>();
   @Output() formClosed = new EventEmitter();
   private fb: FormBuilder = inject(FormBuilder);
+  private readonly datePipe = inject(DatePipe);
   public readonly form: FormGroup = this.fb.group({
-      type: ['', Validators.required],
-      series: ['', Validators.required],
-      number: ['', Validators.required],
-      dateOfIssue: ['', Validators.required],
-      organization: ['', Validators.required],
-      departmentCode: ['', Validators.required],
-      main: [false],
-      archival: [false],
-    });
+    type: ['', Validators.required],
+    series: ['', Validators.required],
+    number: ['', Validators.required],
+    dateOfIssue: ['', Validators.required],
+    organization: ['', Validators.required],
+    departmentCode: ['', Validators.required],
+    main: [false],
+    archival: [false],
+  });
 
   ngOnChanges() {
     setTimeout(() => {
@@ -59,11 +61,33 @@ export class DocsDetailFormComponent implements OnChanges {
 
   public submitForm() {
     if (this.form.valid) {
-      this.formSubmitted.emit({...this.form.value});
+      const transformedData = this.transformFormData(this.form.value);
+
+      this.formSubmitted.emit(transformedData);
+      this.closeModal()
     }
   }
 
   public closeModal() {
     this.formClosed.emit();
+  }
+
+  private transformFormData(data: any) {
+    return {
+      ...data,
+      dateOfIssue: this.formatDate(data.dateOfIssue),
+      departmentCode: this.formatDepartmentCode(data.departmentCode)
+    }
+  }
+
+  private formatDate(date: string) {
+    return this.datePipe.transform(date, 'yyyy-MM-dd');
+  }
+
+  private formatDepartmentCode(code: string) {
+    if(code.length === 6) {
+      return code.slice(0, 3) + '-' + code.slice(3);
+    }
+    return code
   }
 }

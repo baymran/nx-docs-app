@@ -1,13 +1,15 @@
 import {inject} from '@angular/core';
 import {createEffect, Actions, ofType} from '@ngrx/effects';
-import {switchMap, catchError, of, map, withLatestFrom} from 'rxjs';
+import {switchMap, catchError, of, map, withLatestFrom, filter, tap} from 'rxjs';
 import * as DocsActions from './docs.actions';
 import {ApiService} from "@core/http";
 import {
+  CreateDocumentDTO,
   docsDtoAdapter,
   DocumentDTO, selectDetailIdFromURL
 } from "@core/data-access";
-import {Store} from "@ngrx/store";
+import {select, Store} from "@ngrx/store";
+import {selectDocsEntities} from "./docs.selectors";
 
 
 export const docsEffects = createEffect(
@@ -61,6 +63,56 @@ export const loadOneDocument = createEffect(
           return of(DocsActions.loadOneDocument.loadDocumentFailure({error: 'User not found'}));
         }
       ),
+    )
+  }, {functional: true}
+)
+
+export const addOneDocument = createEffect(
+  () => {
+    const actions$ = inject(Actions);
+    const apiService = inject(ApiService);
+    return actions$.pipe(
+      ofType(DocsActions.addNewDocument.addDocument),
+      switchMap(({document}) => apiService.post<DocumentDTO, CreateDocumentDTO>(
+        `/documents/`, document
+      ).pipe(
+        map(document => docsDtoAdapter.DTOtoEntity(document)),
+        map(document => DocsActions.addNewDocument.addDocumentSuccess({document})),
+        catchError(error => of(DocsActions.addNewDocument.addDocumentFailure({error})))
+      ))
+    )
+  }, {functional: true}
+)
+
+export const editDocument = createEffect(
+  () => {
+    const actions$ = inject(Actions);
+    const apiService = inject(ApiService);
+    const docsEntities$ = inject(Store).pipe(select(selectDocsEntities));
+
+    return actions$.pipe(
+      ofType(DocsActions.updateDocument.updateDocument),
+      tap((document) => console.log('EFFECTS', document)),
+      withLatestFrom(docsEntities$),
+      filter(([{document}, docsEntities]) =>
+        Boolean(document.id && docsEntities[document.id])
+      ),
+      map(([{document}, docsEntities]) => ({
+        ...docsEntities[document.id],
+        ...document
+      })),
+      switchMap((document) =>
+        apiService.put<DocumentDTO, DocumentDTO>(`/documents/${document.id}`, document).pipe(
+          map(document => docsDtoAdapter.DTOtoEntity(document)),
+          map(document =>
+            DocsActions.updateDocument.updateDocumentSuccess({document})),
+          catchError((error) => {
+            console.error(error);
+            return of(DocsActions.updateDocument.updateDocumentFailure)
+          })
+        ))
+
+
     )
   }, {functional: true}
 )

@@ -32,12 +32,25 @@ const reducer = createReducer(
     error: null,
   })),
   on(DocsActions.loadDocsSuccess, (state, { docs }) =>
-    docsAdapter.setAll(docs, { ...state, status: 'loaded' as const })
-  ),
+    docsAdapter.setAll(docs, { ...state, status: 'loaded' as const })),
   on(DocsActions.loadDocsFailure, (state, { error }) => ({ ...state, error })),
+
+  // Load One Document
   on(DocsActions.loadOneDocument.loadDocument, (state) => ({...state, status: 'loading' as const})),
   on(DocsActions.loadOneDocument.loadDocumentSuccess, (state, {document}) =>
-    docsAdapter.addOne({...document}, {...state, status: 'loaded' as const}))
+    docsAdapter.addOne({...document}, {...state, status: 'loaded' as const})),
+
+  // Add One Document
+  on(DocsActions.addNewDocument.addDocument, (state) => ({...state, status: 'loading' as const})),
+  on(DocsActions.addNewDocument.addDocumentSuccess, (state, {document}) =>
+    docsAdapter.addOne({...document}, {...state, status: 'loaded' as const})
+  ),
+
+  // Update One Document
+  on(DocsActions.updateDocument.updateDocument, (state) => ({...state, status: 'loading' as const})),
+  on(DocsActions.updateDocument.updateDocumentSuccess, (state, {document}) =>
+    docsAdapter.updateOne({id: document.id, changes: document}, state)
+  )
 );
 
 export function docsReducer(state: DocsState | undefined, action: Action) {
