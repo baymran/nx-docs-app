@@ -19,13 +19,14 @@ import {CdkTableModule} from "@angular/cdk/table";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import localeRu from '@angular/common/locales/ru';
+import {SearchComponent} from "@docs/feature-docs-list";
 
 registerLocaleData(localeRu);
 
 @Component({
   selector: 'docs-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatCheckboxModule, MatPaginatorModule, MatInputModule, MatSelectModule, MatSortModule, MatIconModule, CapitalizeFirstLetterPipe, CdkTableModule, MatMenuModule, MatButtonModule],
+  imports: [CommonModule, MatTableModule, MatCheckboxModule, MatPaginatorModule, MatInputModule, MatSelectModule, MatSortModule, MatIconModule, CapitalizeFirstLetterPipe, CdkTableModule, MatMenuModule, MatButtonModule, SearchComponent],
   templateUrl: './docs-table.component.html',
   styleUrls: ['./docs-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

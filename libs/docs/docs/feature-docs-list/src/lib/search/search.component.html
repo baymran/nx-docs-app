@@ -1,1 +1,19 @@
-<p>search works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field>
+    <mat-label>Тип документа</mat-label>
+    <mat-select formControlName="type">
+      <mat-option *ngFor="let docType of directories.docTypes" [value]="docType">
+        {{ docType | capitalizeFirstLetter }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input formControlName="number" matInput placeholder="Номер">
+  </mat-form-field>
+
+  <button type="submit" mat-raised-button color="primary">Найти</button>
+  <button mat-raised-button color="primary" (click)="reset()">Сбросить</button>
+
+</form>
