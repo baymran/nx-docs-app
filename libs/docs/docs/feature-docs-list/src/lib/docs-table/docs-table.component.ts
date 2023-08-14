@@ -34,6 +34,7 @@ export class DocsTableComponent implements OnChanges, AfterViewInit {
   @Input({required: true}) vm!: DocsListVm;
   @Output() editButtonClicked = new EventEmitter<number>();
   @Output() addButtonClicked = new EventEmitter<'new'>();
+  @Output() removeButtonClicked = new EventEmitter<number>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -93,6 +94,12 @@ export class DocsTableComponent implements OnChanges, AfterViewInit {
   public editButtonHandler() {
     if (this.selectedRowId) {
       this.editButtonClicked.emit(this.selectedRowId);
+    }
+  }
+
+  public removeButtonHandler() {
+    if (this.selectedRowId) {
+      this.removeButtonClicked.emit(this.selectedRowId);
     }
   }
 

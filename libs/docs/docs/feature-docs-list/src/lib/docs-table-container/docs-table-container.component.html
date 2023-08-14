@@ -3,5 +3,9 @@
     docs: docs$,
     status: status$
 } as vm">
-  <docs-table [vm]="vm" (editButtonClicked)="redirectToEditor($event)" (addButtonClicked)="redirectToEditor($event)"></docs-table>
+  <docs-table
+    [vm]="vm"
+    (editButtonClicked)="redirectToEditor($event)"
+    (addButtonClicked)="redirectToEditor($event)"
+    (removeButtonClicked)="removeDocument($event)"></docs-table>
 </ng-container>

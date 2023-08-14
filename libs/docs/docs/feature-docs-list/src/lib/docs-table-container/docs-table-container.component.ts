@@ -24,4 +24,8 @@ export class DocsTableContainerComponent {
   public redirectToEditor(id: number | 'new') {
     this.router.navigate(['', { outlets: { detail: [id]} }], {relativeTo: this.route.parent});
   }
+
+  public removeDocument(id: number) {
+    this.componentStore.removeDocument(id);
+  }
 }

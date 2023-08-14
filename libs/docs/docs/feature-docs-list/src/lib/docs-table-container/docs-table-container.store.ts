@@ -1,6 +1,5 @@
 import {inject, Injectable} from "@angular/core";
 import {ComponentStore} from "@ngrx/component-store";
-import {DeepReadonly} from "@core/utils";
 import {DocumentVm} from "../../../../document-vm";
 import {DocsFacade} from "@docs/data-access";
 import {Observable, tap} from "rxjs";
@@ -41,5 +40,9 @@ export class DocumentsListComponentStore extends ComponentStore<DocsListState> {
         document => docsVMAdapter.entityToVM(document)
       )
     })
+  }
+
+  public removeDocument(id: number) {
+    this.docsFacade.removeDocument(id);
   }
 }

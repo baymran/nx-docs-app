@@ -116,3 +116,20 @@ export const editDocument = createEffect(
     )
   }, {functional: true}
 )
+
+export const deleteDocument = createEffect(
+  () => {
+    const actions$ = inject(Actions)
+    const apiService = inject(ApiService);
+    return actions$.pipe(
+      ofType(DocsActions.deleteDocument.deleteDocument),
+      switchMap(({id}) => apiService.delete<void>(`/documents/${id}/delete/`).pipe(
+        map(() => DocsActions.deleteDocument.deleteDocumentSuccess({id})),
+        catchError((error) => {
+          console.error('Error', error);
+          return of(DocsActions.deleteDocument.deleteDocumentFailure)
+        })
+      ))
+    )
+  }, {functional: true}
+)

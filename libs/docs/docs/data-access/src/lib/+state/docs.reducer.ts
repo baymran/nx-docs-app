@@ -49,8 +49,13 @@ const reducer = createReducer(
   // Update One Document
   on(DocsActions.updateDocument.updateDocument, (state) => ({...state, status: 'loading' as const})),
   on(DocsActions.updateDocument.updateDocumentSuccess, (state, {document}) =>
-    docsAdapter.updateOne({id: document.id, changes: document}, state)
-  )
+    docsAdapter.updateOne({id: document.id, changes: document}, {...state, status: 'loaded' as const})
+  ),
+
+  // Delete One Document
+  on(DocsActions.deleteDocument.deleteDocument, (state) => ({...state, status: 'loading' as const})),
+  on(DocsActions.deleteDocument.deleteDocumentSuccess, (state, {id}) =>
+  docsAdapter.removeOne(id, state))
 );
 
 export function docsReducer(state: DocsState | undefined, action: Action) {

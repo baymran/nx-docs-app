@@ -7,7 +7,7 @@
       <button (click)="editButtonHandler()" mat-raised-button color="accent" aria-label="Редактировать" [disabled]="!selectedRowId">
         <mat-icon>edit</mat-icon>Изменить
       </button>
-      <button mat-raised-button color="warn" aria-label="Удалить" [disabled]="!selectedRowId">
+      <button (click)="removeButtonHandler()" mat-raised-button color="warn" aria-label="Удалить" [disabled]="!selectedRowId">
         <mat-icon>delete</mat-icon>Удалить
       </button>
     </div>

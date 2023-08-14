@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { select, Store, Action } from '@ngrx/store';
+import { select, Store} from '@ngrx/store';
 
 import * as DocsActions from './docs.actions';
 import * as DocsSelectors from './docs.selectors';
@@ -39,5 +39,9 @@ export class DocsFacade {
   public updateDocument(doc: DocumentEntity) {
     const document = docsDtoAdapter.entityToDTO(doc)
     this.store.dispatch(DocsActions.updateDocument.updateDocument({document}))
+  }
+
+  public removeDocument(id: number) {
+    this.store.dispatch(DocsActions.deleteDocument.deleteDocument({id}))
   }
 }

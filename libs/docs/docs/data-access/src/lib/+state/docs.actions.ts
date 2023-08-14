@@ -39,3 +39,12 @@ export const updateDocument = createActionGroup({
     'Update Document Failure': props<{error: any}>()
   }
 })
+
+export const deleteDocument = createActionGroup({
+  source: 'Documents List',
+  events: {
+    'Delete Document': props<{id: number}>(),
+    'Delete Document Success': props<{id: number}>(),
+    'Delete Document Failure': props<{error: any}>()
+  }
+})
